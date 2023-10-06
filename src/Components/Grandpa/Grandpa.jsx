@@ -1,31 +1,38 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 import Aunty from "../Aunty/Aunty";
 import Daddy from "../Daddy/Daddy";
 import Uncle from "../Uncle/Uncle";
 import './Grandpa.css'
 
 export const AssetContext = createContext('gold')
+export const MoneyContext = createContext(1000)
 
 const Grandpa = () => {
-
+    const [money, setMoney] = useState(1000)
     const asset = 'Diamond'
 
     return (
         <div className="grandpa">
             <h3>Grandpa</h3>
-            <AssetContext.Provider value="gold">
-                <section className="flex">
-                    <Daddy asset={asset}></Daddy>
-                    <Uncle></Uncle>
-                    <Aunty></Aunty>
-                </section>
-            </AssetContext.Provider>
+            <p>${money}</p>
+            <MoneyContext.Provider value={[money, setMoney]}>
+                <AssetContext.Provider value="gold">
+                    <section className="flex">
+                        <Daddy asset={asset}></Daddy>
+                        <Uncle></Uncle>
+                        <Aunty></Aunty>
+                    </section>
+                </AssetContext.Provider>
+            </MoneyContext.Provider>
+
         </div>
     );
 };
 
 export default Grandpa;
 
+
+// create context api
 /**
  * 1. create a context and export it
  * 2.  add provider for the context with a value. value could be anything
